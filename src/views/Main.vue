@@ -72,8 +72,11 @@ export default {
   methods: {
     lottery() {
       if (!this.isReady) return;
-      if (this.isMoney) this.play();
-      else this.noMoney();
+      if (this.isMoney) {
+        this.play();
+      } else {
+        this.noMoney();
+      }
     },
     noMoney() {
       this.$store.commit(STOP);
@@ -101,12 +104,14 @@ export default {
 [v-cloak] {
   display: none;
 }
+
 .container {
   position: relative;
   width: 340px;
   min-width: 340px;
   margin-top: 10px;
 }
+
 .header {
   position: relative;
   height: 60px;
@@ -117,12 +122,14 @@ export default {
   border-bottom: solid 3px #ddd;
   overflow: hidden;
 }
+
 .title {
   font-size: 25px;
   font-weight: bold;
   vertical-align: top;
   color: #333;
 }
+
 .main {
   padding-bottom: 25px;
   border-bottom: solid 3px #ddd;

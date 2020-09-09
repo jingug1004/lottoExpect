@@ -1,30 +1,33 @@
 <template>
-  <section :class="$style.dialog">
+  <section v-bind:class="$style.dialog">
     <h2 class="blind">번호 선택</h2>
-    <div :class="$style.content">
-      <ul :class="$style.choose_list">
-        <li :class="$style.choose_item" v-for="(num, idx) in numbers" :key="idx">
-          <span @click="onChooseNumber(num)"
-            :class="$style.choose_num"
-            :style="isChooseed(num)
+    <div v-bind:class="$style.content">
+      <ul v-bind:class="$style.choose_list">
+        <li v-bind:class="$style.choose_item" v-for="(num, idx) in numbers" v-bind:key="idx">
+          <span v-on:click="onChooseNumber(num)"
+                v-bind:class="$style.choose_num"
+                v-bind:style="isChosen(num)
               ? 'background-color: #333; border-color: #000; color: #fff'
               : 'background-color: #fff; border-color: #f00;'"
-            >{{ num }}</span>
+          >{{ num }}</span>
         </li>
-        <li :class="$style.choose_item" v-for="idx in hideNumbers" :key="idx">
-          <span :class="[$style.choose_num, $style.hide]"></span>
+        <li v-bind:class="$style.choose_item" v-for="idx in hideNumbers" v-bind:key="idx">
+          <span v-bind:class="[$style.choose_num, $style.hide]"></span>
         </li>
       </ul>
-      <div :class="$style.footer">
-        <button v-if="myNumber.length > 0" type="button" @click="onResetChoose"
-          :class="[$style.btn_footer, $style.btn_reset, getFooterHalfStyle()]">
-          다시<br/>선택</button>
-        <button type="button" @click="onAutoChoose"
-          :class="[$style.btn_footer, $style.btn_auto, getFooterHalfStyle()]">
-          자동<br/>선택</button>
-        <button v-if="myNumber.length === 6" type="button" @click="onHideChoose"
-          :class="[$style.btn_footer, $style.btn_ok]">
-          선택<br/>완료</button>
+      <div v-bind:class="$style.footer">
+        <button v-if="myNumber.length > 0" type="button" v-on:click="onResetChoose"
+                v-bind:class="[$style.btn_footer, $style.btn_reset, getFooterHalfStyle()]">
+          다시<br/>선택
+        </button>
+        <button type="button" v-on:click="onAutoChoose"
+                v-bind:class="[$style.btn_footer, $style.btn_auto, getFooterHalfStyle()]">
+          자동<br/>선택
+        </button>
+        <button v-if="myNumber.length === 6" type="button" v-on:click="onHideChoose"
+                v-bind:class="[$style.btn_footer, $style.btn_ok]">
+          선택<br/>완료
+        </button>
       </div>
     </div>
   </section>
@@ -47,15 +50,31 @@ export default {
     ...mapGetters(['color', 'myNumber', 'lotteryNumber', 'lotteryBonus']),
   },
   methods: {
-    isChooseed(num) {
+    /**
+     * isChosen -> choose?
+     * @param num
+     * @returns {boolean}
+     */
+    isChosen(num) {
+      /*
       if (this.myNumber.includes(num)) {
         return true;
       }
       return false;
+      */
+      return this.myNumber.includes(num);
     },
+
+    /**
+     * 부모창으로 이동
+     */
     onHideChoose() {
       this.$router.go(-1);
     },
+
+    /**
+     * 선택한 번호
+     */
     onChooseNumber(choose) {
       const num = Number(choose);
       if (this.myNumber.includes(num)) {
@@ -64,12 +83,28 @@ export default {
         this.$store.commit(ADD_MY_NUMBER, { num });
       }
     },
+
+    /**
+     * 다시 선택
+     */
     onResetChoose() {
       this.$store.commit(MY_NUMBER, { numbers: [] });
     },
+
+    /**
+     * 자동선택
+     */
     onAutoChoose() {
       this.$store.commit(MY_NUMBER, { numbers: lotto().numbers });
     },
+
+    /**
+     * 수동선택, 자동선택, 선택 완료
+     * 아무것도 선택 안 했을 시 -> 자동 선택
+     * 최소한 1개 이상 클릭시 -> 다시 선택, 자동 선택
+     * 6개 클릭시 -> 다시 선택, 자동 선택, 선택 완료
+     * @returns {string} 하단 style css를 반환하는 값
+     */
     getFooterHalfStyle() {
       if (this.myNumber.length === 6) {
         return '';
