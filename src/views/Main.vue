@@ -1,16 +1,16 @@
 <template>
-  <div v-cloak :class="$style.container">
-    <header :class="$style.header">
-      <h1 :class="$style.title">{{ appName }}</h1>
+  <div v-cloak v-bind:class="$style.container">
+    <header v-bind:class="$style.header">
+      <h1 v-bind:class="$style.title">{{ appName }}</h1>
       <controller>
         <h2 slot="title" class="blind">시작/정지</h2>
       </controller>
     </header>
-    <main :class="$style.main">
-      <lottery-number :getColor="getColor">
+    <main v-bind:class="$style.main">
+      <lottery-number v-bind:getColor="getColor">
         <h2 slot="title" class="blind">추첨 번호</h2>
       </lottery-number>
-      <my-number :getColor="getColor">
+      <my-number v-bind:getColor="getColor">
         <h2 slot="title" class="blind">내 번호</h2>
       </my-number>
       <result>

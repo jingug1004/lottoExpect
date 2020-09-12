@@ -42,18 +42,34 @@ export default {
   name: 'choose',
   data() {
     return {
+      /**
+       * [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+       * 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+       * 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+       * 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+       * 41, 42, 43, 44, 45]
+       */
       numbers: Array.from(Array(45).keys(), v => v + 1),
+
+      /**
+       * (4) [empty × 4]
+       */
       hideNumbers: Array(4),
     };
   },
   computed: {
-    ...mapGetters(['color', 'myNumber', 'lotteryNumber', 'lotteryBonus']),
+    ...mapGetters([
+      'color',
+      'myNumber',
+      'lotteryNumber',
+      'lotteryBonus',
+    ]),
   },
   methods: {
     /**
      * isChosen -> choose?
-     * @param num
-     * @returns {boolean}
+     * @param num 하나하나 선택한 번호
+     * @returns {boolean} 하나하나 선택한 번호가 있는지? 없는지?
      */
     isChosen(num) {
       /*
@@ -128,20 +144,24 @@ export default {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
 .content {
   width: 260px;
   margin-top: 35px;
   background-color: #fff;
 }
+
 .choose_list {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   padding: 10px 10px 0 10px;
 }
+
 .choose_item {
   margin: 1px;
 }
+
 .choose_num {
   display: inline-block;
   box-sizing: border-box;
@@ -155,19 +175,23 @@ export default {
   color: #f00;
   cursor: pointer;
 }
+
 .choose_num.hide {
   cursor: default;
   opacity: 0;
 }
+
 .opacity {
   opacity: 0.3;
 }
+
 .footer {
   display: block;
   margin-top: 10px;
   text-align: center;
   border-top: solid 1px #aaa;
 }
+
 .btn_footer {
   width: 83px;
   height: 50px;
@@ -177,16 +201,20 @@ export default {
   font-size: 18px;
   cursor: pointer;
 }
+
 .btn_footer_half {
   width: 125px;
 }
+
 .btn_reset {
   color: #f20;
   border-right: solid 1px #aaa;
 }
+
 .btn_auto {
-  color:#05f;
+  color: #05f;
 }
+
 .btn_ok {
   color: #333;
   border-left: solid 1px #aaa;
