@@ -18,12 +18,19 @@ import { CHARGE, CHOOSE } from '@/constants/router';
 export default {
   name: 'controller',
   computed: {
-    ...mapGetters(['isPlaying', 'isMoney', 'myNumber']),
+    ...mapGetters([
+      'isPlaying',
+      'isMoney',
+      'myNumber',
+    ]),
   },
   methods: {
+    /**
+     * 추첨 시작
+     */
     onPlay() {
-      if (this.myNumber.length === 6) {
-        if (this.isMoney) {
+      if (this.myNumber.length === 6) { // myNumber: []
+        if (this.isMoney) { // isMoney: state => state.wallet.have >= PRICE,
           this.$store.commit(PLAY);
         } else {
           this.$router.push(CHARGE);
@@ -32,6 +39,10 @@ export default {
         this.$router.push(CHOOSE);
       }
     },
+
+    /**
+     * 추첨 종료
+     */
     onStop() {
       this.$store.commit(STOP);
     },
@@ -53,6 +64,7 @@ export default {
   cursor: pointer;
   outline: none;
 }
+
 .ico {
   margin-left: 1px;
   font-size: 28px;

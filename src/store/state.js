@@ -15,7 +15,9 @@ export default {
   lotteryBonus: 45,
   winHistory: [],
   result: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
-  wallet: { used: 0, have: DEFAULT_MONEY },
+  wallet: {
+    used: 0, have: DEFAULT_MONEY,
+  },
 };
 
 /*
