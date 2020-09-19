@@ -1,17 +1,17 @@
 <template>
-  <section :class="$style.wrap">
+  <section v-bind:class="$style.wrap">
     <slot name="title"></slot>
-    <ul :class="[$style.list, opacity? $style.opacity : '']">
-      <li :class="$style.item" v-for="(num, idx) in myNumber" :key="idx">
-        <span :class="$style.num"
-          :style="{
+    <ul v-bind:class="[$style.list, opacity? $style.opacity : '']">
+      <li v-bind:class="$style.item" v-for="(num, idx) in myNumber" v-bind:key="idx">
+        <span v-bind:class="$style.num"
+              v-bind:style="{
             borderColor: getColor(num),
             backgroundColor: getMatchingBgColor(num),
             color: getMatchingTextColor(num),
           }">{{ num }}</span>
       </li>
     </ul>
-    <button type="button" @click="onShowChoose" :class="$style.btn_choose">
+    <button type="button" v-on:click="onShowChoose" v-bind:class="$style.btn_choose">
       <span class="txt_btn">번호<br/>선택</span>
     </button>
   </section>
@@ -43,6 +43,7 @@ export default {
     this.EventBus.$on('win', () => {
       this.opacity = '';
     });
+    // Result.vue에 있음
     this.EventBus.$on('lottery', () => {
       this.opacity = 'opacity';
     });
@@ -51,18 +52,32 @@ export default {
     ...mapGetters(['color', 'myNumber', 'lotteryNumber', 'lotteryBonus']),
   },
   methods: {
+    /**
+     * 선택한 번호에 따라 배경색을 다르게
+     * @param num 선택한 번호
+     */
     getMatchingBgColor(num) {
       if (this.lotteryNumber.includes(num)) {
         return this.getColor(num);
       }
       return '#fff';
     },
+
+    /**
+     * 선택한 번호에 따라 글자색을 다르게
+     * @param num 선택한 번호
+     */
     getMatchingTextColor(num) {
       if (this.lotteryNumber.includes(num)) {
         return '#fff';
       }
       return '#000';
     },
+
+    /**
+     * 번호 선택 클릭
+     * 정지하고 선택 팝업 띄우기
+     */
     onShowChoose() {
       this.$store.commit(STOP);
       this.$router.push(CHOOSE);
@@ -78,6 +93,7 @@ export default {
   margin-top: 5px;
   overflow: hidden;
 }
+
 .list {
   float: left;
   overflow: hidden;
@@ -85,9 +101,11 @@ export default {
   background-color: initial;
   transition: opacity 0.5s ease;
 }
+
 .item {
   float: left;
 }
+
 .num {
   display: inline-block;
   box-sizing: border-box;
@@ -101,6 +119,7 @@ export default {
   border: solid 1px #fff;
   transition: background-color 0.3s ease;
 }
+
 .btn_choose {
   float: right;
   width: 43px;
@@ -115,6 +134,7 @@ export default {
   cursor: pointer;
   outline: none;
 }
+
 .ico {
   margin-left: 2px;
   font-size: 25px;

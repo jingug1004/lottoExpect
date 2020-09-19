@@ -1,11 +1,11 @@
 <template>
   <aside>
     <slot name="title"></slot>
-    <button type="button" :class="$style.btn_toggle" v-if="isPlaying" @click="onStop">
-      <i class="material-icons" :class="$style.ico">stop</i>
+    <button type="button" v-bind:class="$style.btn_toggle" v-if="isPlaying" v-on:click="onStop">
+      <i class="material-icons" v-bind:class="$style.ico">stop</i>
     </button>
-    <button type="button" :class="$style.btn_toggle" v-else @click="onPlay">
-      <i class="material-icons" :class="$style.ico">play_arrow</i>
+    <button type="button" v-bind:class="$style.btn_toggle" v-else v-on:click="onPlay">
+      <i class="material-icons" v-bind:class="$style.ico">play_arrow</i>
     </button>
   </aside>
 </template>
